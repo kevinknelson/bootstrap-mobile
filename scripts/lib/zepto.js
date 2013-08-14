@@ -1561,8 +1561,4 @@ window.Zepto = Zepto
   }
 
   testEl = null
-
-  if ( typeof define === "function" && define.amd ) {
-    define( "jquery", [], function () { return Zepto; } );
-  }
 })(Zepto)

@@ -4,12 +4,9 @@ Bootstrap Mobile w/ Zepto & RequireJS (Skeleton)
 ----------
 [**Try It Out**](https://rawgithub.com/kevinknelson/bootstrap-mobile/master/index.html)
 
-## Warning
-* CHANGE TO Zepto.js.  At the bottom of zepto.js, I've added a RequireJS define() call to define itself as 'jquery' so that jquery and zepto can be used interchangeably with RequireJS.  So, upgrading Zepto.js without making the same change again will break this skeleton.
-
 ## Features
 
-* **LIGHTWEIGHT** - Zepto and Bootstrap are less than half the size of jQuery & jQuery mobile.
+* **LIGHTWEIGHT** - Zepto and Bootstrap are less than half the size of jQuery & jQuery mobile.  If the browser isn't compatible with Zepto, JQuery is used instead to optimize compatibility.
 * Using the hash class, changing pages is as easy as jQuery mobile.
 * Unlike jQuery Mobile's default, you can use query parameters (e.g. `#page-name?id=3`) so that stateless, external links are possible.
 * Lazy-load of page scripts.  Don't load the script for `#page2` until the user visits `#page2` without needing an additional MV* framework.
@@ -20,13 +17,12 @@ In building the jQuery Mobile skeleton project, which I also have available, I w
 
 In any case, this project combines the following into a usable starter-kit/skeleton by combining:
 
-* `Zepto` w/ JQuery fallback
+* `Zepto` w/ `jQuery` fallback
 * `Bootstrap 3`
 * `RequireJS`
 
 It modifies the above in two ways:
 
-* `Zepto` as noted in the warning above, I've added a define() call to zepto to define itself as `jquery` so that it will be interchangeable w/ jQuery and thus jQuery can be used as a fallback for non-supporting browsers.
 * `RequireJS` is a non-breaking customized version of RequireJS.  It allows a defaultExt configuration option that allows you to default to .min.js extensions.  If you overwrite this with the current RequireJS release, it will still work, but it will grab the .js files instead.  This is a useful feature for me because my IDE: phpStorm automatically generates the .min.js files next to my .js files as I modify them.
 * `xing/hash` is an AMD module that monitors hash changes to change the page similar to the way that jQuery Mobile works except with class='page' instead of data-role='page'. In addition to monitoring the hash and changing the page, the hash script does the following:
   * allow query parameters in the URL (e.g. #page-name?id=3)
