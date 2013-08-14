@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta http-equiv="cleartype" content="on" />
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
+
+    <title>Mobile</title>
+
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.min.css" />
+
+    <script type='text/javascript' data-main="scripts/main.min" src="scripts/require.min.js"></script>
+</head>
+<body>
+    <div class='container-fluid'>
+        <div class='row-fluid'>
+            <button class='btn btn-large' data-toggle='page' data-target='#page-index'>Home</button>
+            <button class='btn btn-large' data-toggle='page' data-target='#page-users'>Users</button>
+            <button class='btn btn-large' data-toggle='page' data-target='#page-facilities'>Facilities</button>
+            <button class='btn btn-large' data-toggle='page' data-target='#page-facility?id=3'>Facility 3</button>
+        </div>
+    </div>
+    <div style='position:relative;'>
+        <div>
+            <div id='page-index' class="page">
+                <div class='container-fluid'>
+                    <div class='row-fluid'>
+                        <div class='span12'>Index</div>
+                    </div>
+                </div>
+            </div>
+            <div id='page-users' class="page" data-script='page/users'>
+                <div class='container-fluid'>
+                    <div class='row-fluid'>
+                        <div class='span12'>Users</div>
+                    </div>
+                </div>
+            </div>
+            <div id='page-facilities' class="page" data-script='page/facilities'>
+                <div class='container-fluid'>
+                    <div class='row-fluid'>
+                        <div class='span12'>Facilities</div>
+                    </div>
+                </div>
+            </div>
+            <div id='page-facility' class="page" data-script='page/facility'>
+                <div class='container-fluid'>
+                    <div class='row-fluid'>
+                        <div class='span12'>Facility</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
