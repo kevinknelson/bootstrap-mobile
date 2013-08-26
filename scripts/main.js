@@ -14,13 +14,14 @@
      * may fail.  Otherwise, based on the two cross-references of Zepto and caniuse.com, all browsers should work with
      * this configuration of zepto/jquery fallback.
      */
-    var elem            = document.createElement('canvas'),
-        isHtml5AndNotIE = '__proto__' in {} && !!(elem.getContext && elem.getContext('2d')),
-        shim            = isHtml5AndNotIE ? {'jquery':{exports:'Zepto'}} : {};
+    var elem                = document.createElement('canvas'),
+        isHtml5AndNotIE     = '__proto__' in {} && !!(elem.getContext && elem.getContext('2d')),
+        shim                = isHtml5AndNotIE ? {'jquery':{exports:'Zepto',init:function() { window.jQuery=Zepto; }}} : {};
+        shim['bootstrap']   = ['jquery'];
 
     require.config({
         baseUrl:    'scripts',
-        defaultExt: '.min.js',
+        defaultExt: '.js',
         paths: {
             jquery:     isHtml5AndNotIE ? 'lib/zepto' : 'lib/jquery',
             bootstrap:  'lib/bootstrap'
@@ -28,7 +29,7 @@
         shim: shim
     });
 
-    requirejs(['jquery','xing/hash'],function($,hash) {
+    requirejs(['jquery','xing/hash','bootstrap'],function($,hash) {
 
     });
 })();

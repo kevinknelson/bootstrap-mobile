@@ -1,33 +1,51 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="HandheldFriendly" content="True" />
-    <meta name="MobileOptimized" content="320" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <meta http-equiv="cleartype" content="on" />
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-    <title>Mobile</title>
+    <title>My Bootstrap Mobile Site</title>
 
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="css/style.min.css" />
+    <link href="css/style.css" rel="stylesheet">
 
-    <script type='text/javascript' data-main="scripts/main.min" src="scripts/require.min.js"></script>
-</head>
-<body>
-    <div class='container-fluid'>
-        <div class='row-fluid'>
-            <button class='btn btn-large' data-toggle='page' data-target='#page-index'>Home</button>
-            <button class='btn btn-large' data-toggle='page' data-target='#page-users'>Users</button>
-            <button class='btn btn-large' data-toggle='page' data-target='#page-facilities'>Facilities</button>
-            <button class='btn btn-large' data-toggle='page' data-target='#page-facility?id=3'>Facility 3</button>
+      <script type='text/javascript' src='scripts/require.min.js' data-main='scripts/main'></script>
+  </head>
+  <body>
+    <a class="sr-only" href="#content">Skip navigation</a>
+
+    <!-- Docs master nav -->
+    <header class="navbar navbar-inverse navbar-fixed-top bs-docs-nav" role="banner">
+      <div class="container">
+        <div class="navbar-header">
+          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a href="#" class="navbar-brand">My Bootstrap Mobile Site</a>
         </div>
-    </div>
-    <div style='position:relative;'>
+        <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+          <ul class="nav navbar-nav">
+            <li>
+              <a href="#">Home</a>
+            </li>
+            <li>
+              <a href="#page-users">Users</a>
+            </li>
+            <li>
+              <a href="#page-facilities">Facilities</a>
+            </li>
+            <li>
+              <a href="#page-facility?id=3">Facility 3</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <div style='position:relative;top:70px;'>
         <div>
             <div id='page-index' class="page">
                 <div class='container-fluid'>
@@ -59,5 +77,5 @@
             </div>
         </div>
     </div>
-</body>
+  </body>
 </html>
