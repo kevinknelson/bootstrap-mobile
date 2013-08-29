@@ -25,7 +25,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a href="#" class="navbar-brand">My Bootstrap Mobile Site</a>
+          <a href="#" class="navbar-brand">Bootstrap Mobile</a>
         </div>
         <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
           <ul class="nav navbar-nav">
@@ -35,12 +35,6 @@
             <li>
               <a href="#page-users">Users</a>
             </li>
-            <li>
-              <a href="#page-facilities">Facilities</a>
-            </li>
-            <li>
-              <a href="#page-facility?id=3">Facility 3</a>
-            </li>
           </ul>
         </nav>
       </div>
@@ -48,32 +42,57 @@
     <div style='position:relative;top:70px;'>
         <div>
             <div id='page-index' class="page">
-                <div class='container-fluid'>
-                    <div class='row-fluid'>
+                <div class='container'>
+                    <div class='row'>
                         <div class='span12'>Index</div>
                     </div>
                 </div>
             </div>
             <div id='page-users' class="page" data-script='page/users'>
-                <div class='container-fluid'>
-                    <div class='row-fluid'>
-                        <div class='span12'>Users</div>
+                <div class='container'>
+                    <div class='row'>
+                        <h4 class='col-md-2'>Username</h4>
+                        <h4 class='col-md-4'>Full Name</h4>
+                        <h4 class='col-md-4'>Email</h4>
+                    </div>
+                </div>
+                <div id='UsersContainer' class='container'>
+
+                </div>
+            </div>
+            <div id='page-user' class="page" data-script='page/user'>
+                <div class='container'>
+                    <div class='row'>
+                        <div id='UserDetails' class='span12'>User Details</div>
                     </div>
                 </div>
             </div>
-            <div id='page-facilities' class="page" data-script='page/facilities'>
-                <div class='container-fluid'>
-                    <div class='row-fluid'>
-                        <div class='span12'>Facilities</div>
-                    </div>
+        </div>
+    </div>
+
+    <div id='templates' class='hidden'>
+        <div class='users-list'>
+            <div class='well well-sm'>
+                <div class='row'>
+                    <div class='col-sm-2 col-xs-6 username'></div>
+                    <div class='col-sm-4 col-xs-6 fullname'></div>
+                    <div class='col-sm-4 col-xs-6 email'></div>
+                    <div class='col-sm-2 col-xs-6'><button class='btn btn-default btn-xs user-link' data-toggle='page'>details</button></div>
                 </div>
             </div>
-            <div id='page-facility' class="page" data-script='page/facility'>
-                <div class='container-fluid'>
-                    <div class='row-fluid'>
-                        <div class='span12'>Facility</div>
-                    </div>
-                </div>
+        </div>
+        <div class='user-details container'>
+            <div class='row'>
+                <div class='col-xs-6 col-sm-3'>ID:</div>
+                <div class='col-xs-6 col-sm-9 userid'></div>
+            </div>
+            <div class='row'>
+                <div class='col-xs-6 col-sm-3'>Username:</div>
+                <div class='col-xs-6 col-sm-9 username'></div>
+            </div>
+            <div class='row'>
+                <div class='col-xs-6 col-sm-3'>Full Name:</div>
+                <div class='col-xs-6 col-sm-9 fullname'></div>
             </div>
         </div>
     </div>

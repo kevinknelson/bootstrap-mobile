@@ -11,8 +11,8 @@
      * Also, thank-you to Modernizr for an example of checking for canvas.
      *
      * Android 2.1 and IOS Safari 3.2 are not Zepto compatible but have canvas support...so these two specific versions
-     * may fail.  Otherwise, based on the two cross-references of Zepto and caniuse.com, all browsers should work with
-     * this configuration of zepto/jquery fallback.
+     * may fail IF they have __proto__ (I don't care enough to try to find out).  Otherwise, based on the two
+     * cross-references of Zepto and caniuse.com, all browsers should work with this configuration of zepto/jquery fallback.
      */
     var elem                = document.createElement('canvas'),
         isHtml5AndNotIE     = '__proto__' in {} && !!(elem.getContext && elem.getContext('2d')),
