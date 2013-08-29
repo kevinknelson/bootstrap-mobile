@@ -7,7 +7,8 @@ define(['jquery'],function($) {
     $(document).on('scriptloaded','#page-users',function() {
         if( !loaded ) {
 
-            $.get('/mock/users.json',function( results ) {
+            $.get('/mock/users.js',function( results ) {
+                results = $.parseJSON(results);
                 $.each( results, function( index, user ) {
                     var $clone      = $userListHtml.clone(),
                         $emailLink  = $('<a />').attr('href','mailto:'+user.Email).html(user.Email);
