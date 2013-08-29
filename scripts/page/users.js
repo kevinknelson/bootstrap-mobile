@@ -7,7 +7,7 @@ define(['jquery'],function($) {
     $(document).on('scriptloaded','#page-users',function() {
         if( !loaded ) {
 
-            $.get('/mock/users.js',function( results ) {
+            $.get('mock/users.js',function( results ) {
                 results = $.parseJSON(results);
                 $.each( results, function( index, user ) {
                     var $clone      = $userListHtml.clone(),

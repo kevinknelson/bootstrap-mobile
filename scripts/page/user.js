@@ -7,7 +7,7 @@ define(['jquery','xing/hash'],function($,hash) {
     $(document).on('scriptloaded','#page-user',function() {
         var currentId   = hash.get('id');
         if( currentId != lastId ) {
-            $.get('/mock/users.js',function( results ) {
+            $.get('mock/users.js',function( results ) {
                 results = $.parseJSON(results);
                 $.each( results, function( index, user ) {
                     if( user.Id == currentId ) {
