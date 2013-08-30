@@ -67,6 +67,13 @@ define(['jquery'],function($, undefined) {
     $(_document).on('click.page','[data-toggle=page]',function(e) {
         _window.location.hash = $(this).data('target');
     });
+    // ONLY NEEDED IF USING BOOTSTRAP NAVBAR.  This code will ensure that menu
+    // gets closed for single-page apps where we are just changing the hash.
+    $(_document).on('click.nav','.navbar-collapse.in',function(e) {
+        if( $(e.target).is('a') ) {
+            $(this).removeClass('in').addClass('collapse');
+        }
+    });
     //check the URL when DOM ready so we can reload pages by path
     $(_document).ready( function() {
         _$pages     = $('.page');
