@@ -1,5 +1,12 @@
+/*!
+ * xing.hash
+ * http://xingcreative.com/
+ *
+ * Copyright 2013 Kevin K. Nelson
+ * Released under the MIT license
+ */
 define(['jquery'],function($, undefined) {
-    //region PRIVATE MEMBERS/METHODS (NOTE, ASSUMING COMMA IS ABOVE TO NOT NEED var)
+    //region PRIVATE MEMBERS/METHODS
     var _$pages, _$firstPage,
         _window             = window,
         _document           = document,
