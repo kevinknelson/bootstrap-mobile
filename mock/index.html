@@ -1,0 +1,29 @@
+<div class='container'>
+    <div class='row'>
+        <div class='span12'>
+
+            <p>Welcome to a Bootstrap Single-Page App Skeleton. This skeleton provides a way to make a single page web application that is very <span class="label label-info">light weight</span>.  When gzipped, using Zepto to replace jQuery and Bootstrap JS/CSS, files total around <span class="label label-warning">31KB</span>. In contrast, jQuery combined with jQuery Mobile JS/CSS run about 81KB. Combining this with RequireJS allows us to create a single-page application that loads resources asynchronously for the files that need them without needing to load all of our scripts up front.  If you want the look and feel of an app, you may still want to use jQuery Mobile, but for all others, I hope this skeleton will help you.</p>
+
+            <ul>
+                <li>Using <span class="label label-default">RequireJS</span> to manage dependencies, we only load scripts as we need them.</li>
+                <li>If the browser supports HTML 5 and is a supported browser by <span class="label label-default">Zepto</span>, the script will load <span class="label label-default">Zepto</span> instead of <span class="label label-default">jQuery</span> (about 1/3 the size).</li>
+                <li>Using a simple <span class="label label-default">xing/hash</span> listener, we enable page navigation, which will perform the following:
+                    <ul>
+                        <li>Listen for hash changes and change the page accordingly</li>
+                        <li>Listen for clicks to elements with data-toggle="page" to change the page to the data-target.</li>
+                        <li>When changing to a page, it will dynamically load the page script (if not already loaded), which can be declared on the page tag (e.g. &lt;div id='page-user' class='page' data-script="page/user"&gt;)</li>
+                        <li>After a page's dependent script is loaded, it will trigger a "scriptloaded" event.
+                            <ul>
+                                <li>The scriptloaded event can be used to initially load the page the first time but leave it alone if the parameters are the same.</li>
+                                <li>E.g. you go to #page-users?id=3, go to a different page, then go back.  It can check hash.get('id') and if its the same as was previously loaded, not do anything.</li>
+                                <li>This checking and switch is done in the example page scripts.</li>
+                            </ul>
+                        </li>
+                        <li>The individual page script can then fire its own load event to either load, reload, or refresh the data (<strong>example provided in the skeleton</strong>)</li>
+                        <li>Provide a way to pass parameters such as <span class="label label-default">?id=3</span> in the hash that can be retrieved via <span class="label label-default">hash.get('id')</span> (see examples)</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
