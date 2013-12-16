@@ -78,7 +78,7 @@ define(['jquery'],function($, undefined) {
     // gets closed for single-page apps where we are just changing the hash.
     $(_document).on('click.nav','.navbar-collapse.in',function(e) {
         if( $(e.target).is('a') ) {
-            $(this).removeClass('in').addClass('collapse');
+            $(this).collapse('hide');
         }
     });
     //check the URL when DOM ready so we can reload pages by path
