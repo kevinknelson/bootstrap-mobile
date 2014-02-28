@@ -5,7 +5,7 @@
  * Copyright 2013 Kevin K. Nelson
  * Released under the MIT license
  */
-define(['jquery'],function($, undefined) {
+define(['jquery','require'],function($, require, undefined) {
     //region PRIVATE MEMBERS/METHODS
     var _$pages, _$firstPage,
         _window             = window,
@@ -32,26 +32,42 @@ define(['jquery'],function($, undefined) {
                 _get[keyValue[0]] = keyValue[1];
             } );
         },
-    //endregion
-
-    //region LITERAL CLASS DEFINITION: hash (NOTE, ASSUMING COMMA IS ABOVE TO NOT NEED var)
-    hash         = {
-        get             : function( key ) {
-            return _get[key] === undefined ? null : _get[key];
+        _getPageId = function( path ) {
+            var result  = '',
+                parts   = path.split('/');
+            $.each( parts, function(index,value) {
+                if( value != '' ) {
+                    result += (result == '' || result == '#' ? '' : '-') + value;
+                }
+            } );
+            return result;
         },
-        changePage      : function(newHash) {
+        changePage  = function(newHash) {
             var urlSplit        = newHash.split('?'),
-                pageId          = urlSplit[0],
+                pageId          = _getPageId(urlSplit[0]),
                 $page           = pageId=='' || pageId=='#' ? _$firstPage : $(pageId),
-                script          = $page.data('script');
+                script          = $page.data('script'),
+                template        = $page.data('template'),
+                triggerCallback = function() {
+                    if( script != null ) { $page.trigger('scriptloaded'); }
+                };
 
             if( urlSplit[1] !== undefined ) {
                 _setUrlParams(urlSplit[1]);
             }
-            if( script != null && _currentHash != newHash ) {
-                requirejs([script], function() {
-                    $page.trigger('scriptloaded');
-                });
+            if( _currentHash != newHash && (script != null || template != null) ) {
+                var deps        = ['require'];
+                if( script != null ) { deps.push(script); }
+                if( template != null ) {
+                    $.get(require.toUrl(template),function(response) {
+                        $page.html(response);
+                        $page.data('template',null)
+                        requirejs(deps,triggerCallback);
+                    } );
+                }
+                else {
+                    requirejs(deps,triggerCallback);
+                }
             }
             if( newHash !== undefined && newHash != _currentHash ) {
                 _currentHash            = newHash;
@@ -60,6 +76,17 @@ define(['jquery'],function($, undefined) {
                     $this.toggle( $this[0] === $page[0] );
                 } );
             }
+        },
+    //endregion
+
+    //region LITERAL CLASS DEFINITION: hash (NOTE, ASSUMING COMMA IS ABOVE TO NOT NEED var)
+    /** @name XingHash */
+    XingHash         = {
+        get             : function( key ) {
+            return _get[key] === undefined ? null : _get[key];
+        },
+        changePage      : function(newHash) {
+            window.location.hash = newHash;
         }
     };
     //endregion
@@ -67,7 +94,7 @@ define(['jquery'],function($, undefined) {
     //region EVENT HANDLERS
     $(_window).on('hashchange',function() {
         if( _window.location.hash != _currentHash ) {
-            hash.changePage(_window.location.hash);
+            changePage(_window.location.hash);
         }
     });
     //instead of changing hash directly, we can make buttons with data-toggle=page and data-target='#hashPath'
@@ -85,9 +112,9 @@ define(['jquery'],function($, undefined) {
     $(_document).ready( function() {
         _$pages     = $('.page');
         _$firstPage = _$pages.first();
-        hash.changePage(_window.location.hash);
+        changePage(_window.location.hash);
     });
     //endregion
 
-    return hash;
+    return XingHash;
 });
