@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
@@ -10,59 +10,55 @@
 
     <link href="css/style.css" rel="stylesheet">
 
-      <script type='text/javascript' src='scripts/lib/require.js' data-main='scripts/main'></script>
-  </head>
-  <body>
+    <script type='text/javascript' src='scripts/lib/require.js' data-main='scripts/main'></script>
+</head>
+<body>
     <a class="sr-only" href="#content">Skip navigation</a>
 
     <!-- Docs master nav -->
     <header class="navbar navbar-inverse navbar-fixed-top bs-docs-nav" role="banner">
-      <div class="container">
-        <div class="navbar-header">
-          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a href="#" class="navbar-brand">Bootstrap Mobile</a>
+        <div class="container">
+            <div class="navbar-header">
+                <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="#" class="navbar-brand">Bootstrap Mobile</a>
+            </div>
+            <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#">Home</a>
+                    </li>
+                    <li>
+                        <a href="#page-users">Users</a>
+                    </li>
+                </ul>
+            </nav>
         </div>
-        <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
-          <ul class="nav navbar-nav">
-            <li>
-              <a href="#">Home</a>
-            </li>
-            <li>
-              <a href="#page-users">Users</a>
-            </li>
-          </ul>
-        </nav>
-      </div>
     </header>
-    <div style='position:relative;top:70px;'>
-        <div>
-            <div id='page-index' class="page" data-script='page/index'>
-
+    <div id='content' style='position:relative;top:70px;'>
+        <div class='container'>
+            <div id='page-index' class="page row" data-script='page/index'>
 
             </div>
-            <div id='page-users' class="page" data-script='page/users'>
-                <div class='container'>
+            <div id='page-users' class="page row" data-script='page/users'>
+                <div class='col-xs-12'>
                     <div class='row'>
                         <h4 class='col-sm-2 col-xs-6 '>Username</h4>
                         <h4 class='col-sm-4 col-xs-6'>Full Name</h4>
                         <h4 class='col-md-4 hidden-xs'>Email</h4>
-                    </div>
-                </div>
-                <div id='UsersContainer' class='container'>
 
+                        <div id='UsersContainer' class='col-xs-12'>
+
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div id='page-user' class="page" data-script='page/user'>
-                <div class='container'>
-                    <div class='row'>
-                        <div id='UserDetails' class='span12'>User Details</div>
-                    </div>
-                </div>
+            <div id='page-user' class="page row" data-script='page/user'>
+                <div id='UserDetails' class='col-xs-12'>User Details</div>
             </div>
         </div>
     </div>
@@ -74,7 +70,9 @@
                     <div class='col-sm-2 col-xs-6 username'></div>
                     <div class='col-sm-4 col-xs-6 fullname'></div>
                     <div class='col-sm-4 col-xs-6 email'></div>
-                    <div class='col-sm-2 col-xs-6'><button class='btn btn-default btn-xs user-link' data-toggle='page'>details</button></div>
+                    <div class='col-sm-2 col-xs-6'>
+                        <button class='btn btn-default btn-xs user-link' data-toggle='page'>details</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -93,5 +91,5 @@
             </div>
         </div>
     </div>
-  </body>
+</body>
 </html>

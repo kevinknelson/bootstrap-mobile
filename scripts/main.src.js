@@ -14,22 +14,25 @@
      * may fail IF they have __proto__ (I don't care enough to try to find out).  Otherwise, based on the two
      * cross-references of Zepto and caniuse.com, all browsers should work with this configuration of zepto/jquery fallback.
      */
-    var elem                = document.createElement('canvas'),
-        isHtml5AndNotIE     = '__proto__' in {} && !!(elem.getContext && elem.getContext('2d')),
-        shim                = isHtml5AndNotIE ? {'jquery':{exports:'Zepto',init:function() { window.jQuery=Zepto; }}} : {};
-        shim['bootstrap']   = ['jquery'];
+    var elem                            = document.createElement('canvas'),
+        isHtml5AndNotIE                 = false && '__proto__' in {} && !!(elem.getContext && elem.getContext('2d')),
+        shim                            = isHtml5AndNotIE ? {'jquery':{exports:'Zepto',init:function() { window.jQuery=Zepto; }}} : {};
 
     require.config({
         baseUrl:    'scripts',
         defaultExt: '.src.js', //change this to .js for production, or replace require.src.js with unmodified copy
         paths: {
-            jquery:     isHtml5AndNotIE ? 'lib/zepto' : 'lib/jquery',
-            bootstrap:  'lib/bootstrap'
+            jquery:         isHtml5AndNotIE ? 'lib/zepto-combined' : 'lib/jquery-combined',
+            JSON:           'lib/json'
         },
         shim: shim
     });
 
-    requirejs(['jquery','xing/hash','bootstrap'],function($,hash) {
+    if( typeof JSON != 'undefined' ) {
+        define('JSON',[],function() { return JSON; });
+    }
+
+    requirejs(['jquery','xing/hash'],function($,hash) {
 
     });
 })();
