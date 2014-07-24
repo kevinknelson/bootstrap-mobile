@@ -12,8 +12,13 @@
 
     <script type='text/javascript' src='scripts/lib/require.js' data-main='scripts/main'></script>
 </head>
-<body>
+<body data-progress-display='#progress-display' data-status-message='#status-notification'>
     <a class="sr-only" href="#content">Skip navigation</a>
+    <div id='progress-display'></div>
+    <div id='status-notification'><div class='notification'>
+        <button type="button" class="close" data-action="toggle" data-target="#status-notification" aria-hidden="true">&times;</button>
+        <div class='content'></div>
+    </div></div>
 
     <!-- Docs master nav -->
     <header class="navbar navbar-inverse navbar-fixed-top bs-docs-nav" role="banner">
@@ -30,64 +35,24 @@
             <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="#">Home</a>
+                        <a href="#!/index">Home</a>
                     </li>
                     <li>
-                        <a href="#page-users">Users</a>
+                        <a href="#!/user/index">Users</a>
                     </li>
                 </ul>
             </nav>
         </div>
     </header>
-    <div id='content' style='position:relative;top:70px;'>
-        <div class='container'>
-            <div id='page-index' class="page row" data-script='page/index'>
-
+    <div id='content' class='container' style='position:relative;top:70px;'>
+        <div class='row'>
+            <noscript><div class='alert alert-danger'>This page does not function without JavaScript</div></noscript>
+            <div class='col-xs-12'>
+                <h3 id='page-title'>Bootstrap Mobile Skeleton Example</h3>
             </div>
-            <div id='page-users' class="page row" data-script='page/users'>
-                <div class='col-xs-12'>
-                    <div class='row'>
-                        <h4 class='col-sm-2 col-xs-6 '>Username</h4>
-                        <h4 class='col-sm-4 col-xs-6'>Full Name</h4>
-                        <h4 class='col-md-4 hidden-xs'>Email</h4>
-
-                        <div id='UsersContainer' class='col-xs-12'>
-
-                        </div>
-                    </div>
+            <div id='page-container' class='col-xs-12 sm-shadow-box'>
+                <div id='index' class='page' data-script='ui/views/index'>
                 </div>
-            </div>
-            <div id='page-user' class="page row" data-script='page/user'>
-                <div id='UserDetails' class='col-xs-12'>User Details</div>
-            </div>
-        </div>
-    </div>
-
-    <div id='templates' class='hidden'>
-        <div class='users-list'>
-            <div class='well well-sm'>
-                <div class='row'>
-                    <div class='col-sm-2 col-xs-6 username'></div>
-                    <div class='col-sm-4 col-xs-6 fullname'></div>
-                    <div class='col-sm-4 col-xs-6 email'></div>
-                    <div class='col-sm-2 col-xs-6'>
-                        <button class='btn btn-default btn-xs user-link' data-toggle='page'>details</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class='user-details container'>
-            <div class='row'>
-                <div class='col-xs-6 col-sm-3'>ID:</div>
-                <div class='col-xs-6 col-sm-9 userid'></div>
-            </div>
-            <div class='row'>
-                <div class='col-xs-6 col-sm-3'>Username:</div>
-                <div class='col-xs-6 col-sm-9 username'></div>
-            </div>
-            <div class='row'>
-                <div class='col-xs-6 col-sm-3'>Full Name:</div>
-                <div class='col-xs-6 col-sm-9 fullname'></div>
             </div>
         </div>
     </div>

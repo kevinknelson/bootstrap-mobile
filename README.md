@@ -9,12 +9,12 @@ Bootstrap 3 Single-Page App Skeleton
 
 * **LIGHTWEIGHT** - Zepto and Bootstrap are less than half the size of jQuery & jQuery mobile.  If the browser isn't compatible with Zepto, JQuery is used instead to optimize compatibility.
 * **EASY PAGE TRANSITION** - Using the hash class, changing pages is as easy as jQuery mobile...just less animation and "cool-ness" factors.
-* **QUERY PARAMETERS** - Unlike jQuery Mobile's default, you can use query parameters (e.g. `#page-name?id=3`) so that stateless, external links are possible.
-* **BEST PRACTICES** - or "better than average practices" at least.  Using RequireJS we Lazy-load page scripts (e.g. don't load the script for `#page2` until the user visits `#page2` without needing an additional MV* framework.)  Other things like combining files to reduce the number of HTTP requests is recommended.  To do further optimization, however, you'll want to go to RequireJS and study up :).
+* **QUERY PARAMETERS** - Unlike jQuery Mobile's default, you can use query parameters (e.g. `#!/page/name?id=3`) so that stateless, external links are possible.
+* **BEST PRACTICES** - or "better than average practices" at least.  Using RequireJS we Lazy-load page scripts (e.g. don't load the script for `#!/page/name` until the user visits `#!/page/name` without needing an additional MV* framework.)  Other things like combining files to reduce the number of HTTP requests is recommended.  To do further optimization, however, you'll want to go to RequireJS and study up :).
 
 In building the jQuery Mobile skeleton project, which I also have available, I was discouraged by the size of jQuery combined with jQuery Mobile when I wasn't planning to use the majority of the features available in jQuery Mobile, nor did I like jQuery Mobile's approach to dynamically changing all of your HTML markup to make things layout correctly, which then requires you to call refresh methods all the time.  JQuery Mobile is "cool" because it gives it that "mobile app" feel, but I'm not certain that is worth the bloat when mobile connections still tend to be sporadic and sometimes slow.  So, I investigated the options and found Zepto.  Zepto has all the features I need, and with some conditionals in the RequireJS config, I'm able to fallback to jQuery for non-supporting browsers...**Win-Win**.
 
-**Not for Everybody** If you have an extremely complex app with a lot of data management, it may be better to look into KnockoutJS, Backbone, etc., for a more robust MV* framework.  However, this may at least help you get started if you are starting from scratch.
+**Not for Everybody** If you have an extremely complex app with a lot of data management, it may be better to look into KnockoutJS, Backbone, etc., for a more robust MV* framework.  However, this may at least help you get started if you are starting from scratch.  Also, the #! (hash-bang) URL mechanism leaves something to be desired. Ideally, you should have code that can generate the HTML with JavaScript disabled.  So, that means this code is best for applications where google search indexing and supporting all users is not really necessary.
 
 In any case, this project combines the following into a usable starter-kit/skeleton by combining:
 
@@ -30,17 +30,26 @@ It modifies the above in two ways:
   * lazy-load the page script needed for that specific page if one is specified on the class='page' tag using the data-script attribute.
 
 
-> See index.html class='page' tags for examples of including page scripts.
+> See index.html class='page' tags for examples of including pages manually on the page.
 
-> See `page/user.js` for an example of how to retrieve query parameters.
+> See `scripts/ui/views/user/*.js` and scripts/ui/templates/uiser/*.html for examples of pages loaded dynamically and how to retrieve query parameters.
 
-In the event you are using a button rather than an anchor tag and you want to change the hash with that button, rather than writing any JavaScript, etc., `xing/hash` also sets up a listener that listens for any click on an element with `[data-toggle=page]` and will change the page to what is set in the `data-target` attribute.
+In the event you are using a button rather than an anchor tag and you want to change the hash with that button, rather than writing any JavaScript, etc., `xing/hash` also sets up a listener that listens for any click on an element with `[data-toggle=page]` and will change the hash to what is set in the `data-target` attribute.
 
 ## Note
 
 The skeleton is setup with some example pages where you can see that a refresh will take you back to the page you were on, it will load up the needed script for that page and load the content, then going back to that page later, unless a query parameter has changed from the last time the page was loaded, it will just show the page and not waste its time reloading.  This does require that you do some checking in the scriptloaded event handler, but I provided some examples to help those a bit newer to single page apps on how to do it.
 
 ## Change Log
+
+### 24th July 2014
+
+* Upgraded Bootstrap, JQuery, and Zepto. When using Zepto, there is a bootstrap error w/ `$.event.special`, which I am hiding. It doesn't affect any of the code I'm using, but if you have bootstrap issues, try turning off Zepto support.
+* realized I had not included bootstrap fonts or bootstrap-theme files, so included those.
+* added ajax-loader.gif.  The loader image will automatically display for the user while it's waiting for a response when you use the http.* AJAX methods, which are just wrappers for the jQuery AJAX methods.
+* re-organized code in the /scripts/src folder to make it more obvious what the -combined files contain in the /scripts/lib folder.
+* create a Dynamic Loading of the template and view so that you don't have to create empty tag placeholders for your pages.  Just link to them and if the script and template exists, it will load. However, this expects you to have both the HTML and the JS for the dynamically loaded page.
+* TO-DO: need to create a pseudo 404 mechanism now that it will dynamically find and load pages based on the URL.
 
 ### 9th September 2013
 

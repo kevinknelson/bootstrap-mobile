@@ -1,0 +1,1 @@
+define(["jquery","xing/http"],function(e,c){var b=false,d="#index",a=e(d);a.on("scriptloaded",function(){if(!b){c.get("~/mock/index.html",{},function(f){a.html(f);b=true})}})});

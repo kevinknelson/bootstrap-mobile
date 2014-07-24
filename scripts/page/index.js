@@ -1,1 +1,0 @@
-define(["jquery"],function(b){var a=false;b(document).on("scriptloaded","#page-index",function(){if(!a){var c=b(this);b.get("mock/index.html",function(d){c.html(d)})}})});

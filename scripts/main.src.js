@@ -15,15 +15,17 @@
      * cross-references of Zepto and caniuse.com, all browsers should work with this configuration of zepto/jquery fallback.
      */
     var elem                            = document.createElement('canvas'),
-        isHtml5AndNotIE                 = false && '__proto__' in {} && !!(elem.getContext && elem.getContext('2d')),
-        shim                            = isHtml5AndNotIE ? {'jquery':{exports:'Zepto',init:function() { window.jQuery=Zepto; }}} : {};
+        isHtml5AndNotIE                 = '__proto__' in {} && !!(elem.getContext && elem.getContext('2d')),
+        shim                            = isHtml5AndNotIE ? {'jquery':{exports:'Zepto',init:function() { window.jQuery=Zepto; }}} : {},
+        isProduction                    = window.location.host.replace('www.','') == 'entouchgo.com'
+    ;
 
     require.config({
         baseUrl:    'scripts',
-        defaultExt: '.src.js', //change this to .js for production, or replace require.src.js with unmodified copy
+        defaultExt: isProduction ? '.js' : '.src.js', //change this to .js for production, or replace require.src.js with unmodified copy
         paths: {
-            jquery:         isHtml5AndNotIE ? 'lib/zepto-combined' : 'lib/jquery-combined',
-            JSON:           'lib/json'
+            jquery:  isHtml5AndNotIE ? 'lib/zepto-combined' : 'lib/jquery-combined',
+            JSON:    'lib/json'
         },
         shim: shim
     });
@@ -31,8 +33,13 @@
     if( typeof JSON != 'undefined' ) {
         define('JSON',[],function() { return JSON; });
     }
+    define('xing',[],function() { return {}; });
 
     requirejs(['jquery','xing/hash'],function($,hash) {
-
+        hash.config('#page-container','ui/views','ui/templates','.html');
+        hash.init();
+        $(document).on('click','[data-action=toggle]', function() {
+            $($(this).data('target')).toggle();
+        } );
     });
 })();

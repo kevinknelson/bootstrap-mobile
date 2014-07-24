@@ -1,4 +1,4 @@
-define(['jquery'],function($) {
+define(['jquery','xing'],function($,xing) {
     var $body       = $('body'),
         $progress   = $($body.data('progressDisplay')),
         $status     = $($body.data('statusMessage')),
@@ -25,55 +25,56 @@ define(['jquery'],function($) {
                 }
                 callback($.parseJSON(xhr.response));
             };
+        }
+    ;
+    xing.http = {
+        BasePath	: baseDir,
+        SitePath	: sitePath,
+        redirect    : function( path ) {
+            stackCall(); // show our processing loader when changing pages
+            window.location.href    = path.replace('~',this.BasePath);
         },
-        XingHttp = {
-            BasePath	: baseDir,
-            SitePath	: sitePath,
-            redirect    : function( path ) {
-                stackCall(); // show our processing loader when changing pages
-                window.location.href    = path.replace('~',this.BasePath);
-            },
-            get         : function( path, data, callback, stopLoadingIcon ) {
-                XingHttp.ajax('GET',path,data,callback,stopLoadingIcon);
-            },
-            post        : function( path, data, callback, stopLoadingIcon  ) {
-                XingHttp.ajax('POST',path,data,callback,stopLoadingIcon);
-            },
-            put         : function( path, data, callback, stopLoadingIcon ) {
-                XingHttp.ajax('PUT',path,data,callback,stopLoadingIcon);
-            },
-            ajax        : function( type, path, data, callback, stopLoadingIcon ) {
-                stopLoadingIcon = stopLoadingIcon || false;
+        get         : function( path, data, callback, stopLoadingIcon ) {
+            xing.http.ajax('GET',path,data,callback,stopLoadingIcon);
+        },
+        post        : function( path, data, callback, stopLoadingIcon  ) {
+            xing.http.ajax('POST',path,data,callback,stopLoadingIcon);
+        },
+        put         : function( path, data, callback, stopLoadingIcon ) {
+            xing.http.ajax('PUT',path,data,callback,stopLoadingIcon);
+        },
+        ajax        : function( type, path, data, callback, stopLoadingIcon ) {
+            stopLoadingIcon = stopLoadingIcon || false;
 
-                $.ajax( {
-                    type        : type,
-                    url         : path.replace('~',this.BasePath),
-                    data        : data,
-                    success     : stopLoadingIcon ? callback : function(response) { unstackCall(); callback(response); },
-                    error       : getErrorHandler(callback, !stopLoadingIcon)
-                } );
+            $.ajax( {
+                type        : type,
+                url         : path.replace('~',this.BasePath),
+                data        : data,
+                success     : stopLoadingIcon ? callback : function(response) { unstackCall(); callback(response); },
+                error       : getErrorHandler(callback, !stopLoadingIcon)
+            } );
 
-                if( !stopLoadingIcon ) {
-                    stackCall();
-                }
-            },
-            stackCall       : stackCall,
-            unstackCall     : unstackCall,
-            forceEndStack   : function() {
-                stackCount = 0;
-                unstackCall();
-            },
-            message     : function( msg, isError, timeoutSecs, callback ) {
-                if( $status.length ) {
-                    $status.find('.content').html(msg);
-                    $status.toggleClass('error',!!isError).show('fast'); // force isError to boolean with !!
-                    setTimeout( function() {
-                        $status.hide('fast');
-                        if( callback ) { callback(); }
-                    }, typeof timeoutSecs == 'undefined' ? 1400 : (timeoutSecs * 1000));
-                }
+            if( !stopLoadingIcon ) {
+                stackCall();
             }
-        };
+        },
+        stackCall       : stackCall,
+        unstackCall     : unstackCall,
+        forceEndStack   : function() {
+            stackCount = 0;
+            unstackCall();
+        },
+        message     : function( msg, isError, timeoutSecs, callback ) {
+            if( $status.length ) {
+                $status.find('.content').html(msg);
+                $status.toggleClass('error',!!isError).show('fast'); // force isError to boolean with !!
+                setTimeout( function() {
+                    $status.hide('fast');
+                    if( callback ) { callback(); }
+                }, typeof timeoutSecs == 'undefined' ? 1400 : (timeoutSecs * 1000));
+            }
+        }
+    };
 
-    return XingHttp;
+    return xing.http;
 });

@@ -5,13 +5,17 @@
  * Copyright 2013 Kevin K. Nelson
  * Released under the MIT license
  */
-define(['jquery','require'],function($, require, undefined) {
+define(['jquery','require','xing'],function($, require, xing, undefined) {
     //region PRIVATE MEMBERS/METHODS
     var _$pages, _$firstPage,
         _window             = window,
         _document           = document,
         _get                = {},
         _currentHash        = null,
+        _templatePath       = '',
+        _templateExt        = '',
+        _viewModelPath      = '',
+        _$pageContainer     = null,
         _getKeyValuePair    = function( arr ) {
             return { key:arr[0], value:arr[1] };
         },
@@ -33,24 +37,27 @@ define(['jquery','require'],function($, require, undefined) {
             } );
         },
         _getPageId = function( path ) {
-            var result  = '',
-                parts   = path.split('/');
-            $.each( parts, function(index,value) {
-                if( value != '' ) {
-                    result += (result == '' || result == '#' ? '' : '-') + value;
-                }
-            } );
-            return result;
+            return path.replace('/','-');
+        },
+        _getPageTag = function( path ) {
+            var pageId      = _getPageId(path),
+                $page       = path=='' ? _$firstPage : $('#'+pageId);
+            if( $page.length ) { return $page; }
+            $page = $("<div />").attr('id',pageId).addClass('page').data('script',_viewModelPath+'/'+path).data('template',_templatePath+'/'+path+_templateExt);
+            _$pageContainer.append($page);
+            _$pages         = $('.page'); //update list since we added tag
+            return $page;
         },
         changePage  = function(newHash) {
             var urlSplit        = newHash.split('?'),
-                pageId          = _getPageId(urlSplit[0]),
-                $page           = pageId=='' || pageId=='#' ? _$firstPage : $(pageId),
+                dynamicPath     = urlSplit[0].replace(/^(#|\/|!)+/,''),
+                $page           = _getPageTag(dynamicPath),
                 script          = $page.data('script'),
                 template        = $page.data('template'),
                 triggerCallback = function() {
                     if( script != null ) { $page.trigger('scriptloaded'); }
-                };
+                }
+            ;
 
             if( urlSplit[1] !== undefined ) {
                 _setUrlParams(urlSplit[1]);
@@ -76,17 +83,28 @@ define(['jquery','require'],function($, require, undefined) {
                     $this.toggle( $this[0] === $page[0] );
                 } );
             }
-        },
+        }
+    ;
     //endregion
 
     //region LITERAL CLASS DEFINITION: hash (NOTE, ASSUMING COMMA IS ABOVE TO NOT NEED var)
-    /** @name XingHash */
-    XingHash         = {
+    xing.hash         = {
         get             : function( key ) {
             return _get[key] === undefined ? null : _get[key];
         },
         changePage      : function(newHash) {
             window.location.hash = newHash;
+        },
+        config          : function(pageContainerId, viewModelPath, templatePath, templateExtension) {
+            _$pageContainer = $(pageContainerId);
+            _templatePath   = templatePath;
+            _templateExt    = templateExtension;
+            _viewModelPath  = viewModelPath;
+        },
+        init            : function() {
+            _$pages     = $('.page');
+            _$firstPage = _$pages.first();
+            changePage(_window.location.hash);
         }
     };
     //endregion
@@ -108,13 +126,7 @@ define(['jquery','require'],function($, require, undefined) {
             $(this).collapse('hide');
         }
     });
-    //check the URL when DOM ready so we can reload pages by path
-    $(_document).ready( function() {
-        _$pages     = $('.page');
-        _$firstPage = _$pages.first();
-        changePage(_window.location.hash);
-    });
     //endregion
 
-    return XingHash;
+    return xing.hash;
 });

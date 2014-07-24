@@ -5,7 +5,7 @@
  * Copyright 2013 Kevin K. Nelson
  * Released under the MIT license
  */
-define(['jquery','lib/json'],function($,json) {
+define(['jquery','lib/json','xing'],function($,json,xing) {
     var getStorage          = function() {
             if( typeof sessionStorage != 'undefined' ) {
                 try {
@@ -25,7 +25,7 @@ define(['jquery','lib/json'],function($,json) {
         getStoredValue     = function( key ) {
             if( isStored(key) ) {
                 var result = _sessionStorage.getItem(key);
-                XingSession.set(key, result);
+                xing.session.set(key, result);
                 return result;
             }
             return null;
@@ -33,30 +33,31 @@ define(['jquery','lib/json'],function($,json) {
 
         _vars               = {},
         _sessionStorage     = getStorage(),
-        _hasStorage         = _sessionStorage != null,
+        _hasStorage         = _sessionStorage != null
+    ;
 
-        XingSession = {
-            get     : function( varName ) {
-                return typeof _vars[varName] == 'undefined' ? getStoredValue(varName) : _vars[varName];
-            },
-            set     : function( varName, value ) {
-                _vars[varName] = value;
-            },
-            store   : function( varName, value ) {
-                this.set(varName,value);
-                if( _hasStorage ) {
-                    _sessionStorage.setItem(varName,value);
-                }
-            },
-            getObject   : function( varName ) {
-                return JSON.parse(this.get(varName));
-            },
-            setObject   : function( varName, object ) {
-                this.set(varName, json.stringify(object));
-            },
-            storeObject : function( varName, object ) {
-                this.store(varName, json.stringify(object));
+    xing.session = {
+        get     : function( varName ) {
+            return typeof _vars[varName] == 'undefined' ? getStoredValue(varName) : _vars[varName];
+        },
+        set     : function( varName, value ) {
+            _vars[varName] = value;
+        },
+        store   : function( varName, value ) {
+            this.set(varName,value);
+            if( _hasStorage ) {
+                _sessionStorage.setItem(varName,value);
             }
-        };
-    return XingSession;
+        },
+        getObject   : function( varName ) {
+            return json.parse(this.get(varName));
+        },
+        setObject   : function( varName, object ) {
+            this.set(varName, json.stringify(object));
+        },
+        storeObject : function( varName, object ) {
+            this.store(varName, json.stringify(object));
+        }
+    };
+    return xing.session;
 });
