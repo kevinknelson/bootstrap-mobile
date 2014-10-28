@@ -21,20 +21,22 @@ define(['jquery','require','xing'],function($, require, xing, undefined) {
         },
         _setUrlParams       = function( queryStringParams ) {
             _get                = {};
-            var params          = queryStringParams.split('&');
-            $.each( params, function( index, param )  {
-                var keyValue    = _getKeyValuePair(param.split('='));
-                if( _get[keyValue.key] === undefined ) {
-                    _get[keyValue.key]   = keyValue.value;
-                }
-                else if( typeof _get[keyValue.key] == 'object' ) {
-                    _get[keyValue.key].push(keyValue.value);
-                }
-                else {
-                    _get[keyValue.key]  = [ _get[keyValue.key], keyValue.value ];
-                }
-                _get[keyValue[0]] = keyValue[1];
-            } );
+            if( queryStringParams ) {
+                var params          = queryStringParams.split('&');
+                $.each( params, function( index, param )  {
+                    var keyValue    = _getKeyValuePair(param.split('='));
+                    if( _get[keyValue.key] === undefined ) {
+                        _get[keyValue.key]   = keyValue.value;
+                    }
+                    else if( typeof _get[keyValue.key] == 'object' ) {
+                        _get[keyValue.key].push(keyValue.value);
+                    }
+                    else {
+                        _get[keyValue.key]  = [ _get[keyValue.key], keyValue.value ];
+                    }
+                    _get[keyValue[0]] = keyValue[1];
+                } );
+            }
         },
         _getPageId = function( path ) {
             return path.replace('/','-');
@@ -59,9 +61,8 @@ define(['jquery','require','xing'],function($, require, xing, undefined) {
                 }
             ;
 
-            if( urlSplit[1] !== undefined ) {
-                _setUrlParams(urlSplit[1]);
-            }
+            _setUrlParams(urlSplit[1]);
+
             if( _currentHash != newHash && (script != null || template != null) ) {
                 var deps        = ['require'];
                 if( script != null ) { deps.push(script); }
