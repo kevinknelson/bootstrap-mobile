@@ -1,6 +1,4 @@
-//     Zepto.js
-//     (c) 2010-2014 Thomas Fuchs
-//     Zepto.js may be freely distributed under the MIT license.
+/* Zepto v1.1.4 - zepto event ajax form ie - zeptojs.com/license */
 
 var Zepto = (function() {
   var undefined, key, $, classList, emptyArray = [], slice = emptyArray.slice, filter = emptyArray.filter,
@@ -879,12 +877,8 @@ var Zepto = (function() {
   return $
 })()
 
-// If `$` is not yet defined, point it to `Zepto`
 window.Zepto = Zepto
 window.$ === undefined && (window.$ = Zepto)
-//     Zepto.js
-//     (c) 2010-2014 Thomas Fuchs
-//     Zepto.js may be freely distributed under the MIT license.
 
 ;(function($){
   var _zid = 1, undefined,
@@ -1164,9 +1158,6 @@ window.$ === undefined && (window.$ = Zepto)
   }
 
 })(Zepto)
-//     Zepto.js
-//     (c) 2010-2014 Thomas Fuchs
-//     Zepto.js may be freely distributed under the MIT license.
 
 ;(function($){
   var jsonpID = 0,
@@ -1515,16 +1506,13 @@ window.$ === undefined && (window.$ = Zepto)
     return params.join('&').replace(/%20/g, '+')
   }
 })(Zepto)
-//     Zepto.js
-//     (c) 2010-2014 Thomas Fuchs
-//     Zepto.js may be freely distributed under the MIT license.
 
 ;(function($){
   $.fn.serializeArray = function() {
-    var el, type, result = []
+    var result = [], el
     $([].slice.call(this.get(0).elements)).each(function(){
       el = $(this)
-      type = el.attr('type')
+      var type = el.attr('type')
       if (this.nodeName.toLowerCase() != 'fieldset' &&
         !this.disabled && type != 'submit' && type != 'reset' && type != 'button' &&
         ((type != 'radio' && type != 'checkbox') || this.checked))
@@ -1555,9 +1543,6 @@ window.$ === undefined && (window.$ = Zepto)
   }
 
 })(Zepto)
-//     Zepto.js
-//     (c) 2010-2014 Thomas Fuchs
-//     Zepto.js may be freely distributed under the MIT license.
 
 ;(function($){
   // __proto__ doesn't exist on IE<11, so redefine
