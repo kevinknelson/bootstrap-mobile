@@ -15,16 +15,20 @@
      * cross-references of Zepto and caniuse.com, all browsers should work with this configuration of zepto/jquery fallback.
      */
     var elem                            = document.createElement('canvas'),
-        isHtml5AndNotIE                 = '__proto__' in {} && !!(elem.getContext && elem.getContext('2d')),
-        shim                            = isHtml5AndNotIE ? {'jquery':{exports:'Zepto',init:function() { window.jQuery=Zepto; }}} : {},
-        isProduction                    = window.location.host.replace('www.','') == 'entouchgo.com'
+        // you can change to true to use Zepto if it works for your project.
+        // Unfortunately, Zepto doesn't work with the bootstrap menu system,
+        // so I've disabled it by default
+        isSiteZeptoCompatible           = false,
+        useZepto                        = isSiteZeptoCompatible && '__proto__' in {} && !!(elem.getContext && elem.getContext('2d')),
+        shim                            = useZepto ? {'jquery':{exports:'Zepto',init:function() { window.jQuery=Zepto; }}} : {},
+        isProduction                    = window.location.host.replace('www.','') == 'myproductionsite.com'
     ;
 
     require.config({
         baseUrl:    'scripts',
         defaultExt: isProduction ? '.js' : '.src.js', //change this to .js for production, or replace require.src.js with unmodified copy
         paths: {
-            jquery:  isHtml5AndNotIE ? 'lib/zepto-combined' : 'lib/jquery-combined',
+            jquery:  useZepto ? 'lib/zepto-combined' : 'lib/jquery-combined',
             JSON:    'lib/json'
         },
         shim: shim

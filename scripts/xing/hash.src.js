@@ -123,7 +123,7 @@ define(['jquery','require','xing'],function($, require, xing, undefined) {
     // ONLY NEEDED IF USING BOOTSTRAP NAVBAR.  This code will ensure that menu
     // gets closed for single-page apps where we are just changing the hash.
     $(_document).on('click.nav','.navbar-collapse.in',function(e) {
-        if( $(e.target).is('a') ) {
+        if( $(e.target).is('a') && ( $(e.target).attr('class') != 'dropdown-toggle' ) ) {
             $(this).collapse('hide');
         }
     });
