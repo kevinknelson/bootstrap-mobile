@@ -1,17 +1,19 @@
 define(['jquery','../../../xing/hash','xing/http'],function($,hash,http) {
+    'use strict';
     var lastId          = null,
         prefix          = '#user-view',
         $page           = $(prefix),
         $templates      = $(prefix+'-templates'),
-        $userHtml       = $templates.find('.user-details');
+        $userHtml       = $templates.find('.user-details')
+    ;
 
     $page.on('scriptloaded',function() {
-        var currentId   = hash.get('id');
-        if( currentId != lastId ) {
+        var currentId   = +hash.get('id');
+        if( currentId !== lastId ) {
             http.get('~/mock/users.js',{},function( results ) {
                 results = $.parseJSON(results);
                 $.each( results, function( index, user ) {
-                    if( user.Id == currentId ) {
+                    if( user.Id === currentId ) {
                         var $clone      = $userHtml.clone(),
                             $emailLink  = $('<a />').attr('href','mailto:'+user.Email).html(user.Email);
 

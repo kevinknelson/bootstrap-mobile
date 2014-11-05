@@ -14,27 +14,30 @@
      * may fail IF they have __proto__ (I don't care enough to try to find out).  Otherwise, based on the two
      * cross-references of Zepto and caniuse.com, all browsers should work with this configuration of zepto/jquery fallback.
      */
+    'use strict';
     var elem                            = document.createElement('canvas'),
         // you can change to true to use Zepto if it works for your project.
         // Unfortunately, Zepto doesn't work with the bootstrap menu system,
         // so I've disabled it by default
         isSiteZeptoCompatible           = false,
         useZepto                        = isSiteZeptoCompatible && '__proto__' in {} && !!(elem.getContext && elem.getContext('2d')),
-        shim                            = useZepto ? {'jquery':{exports:'Zepto',init:function() { window.jQuery=Zepto; }}} : {},
-        isProduction                    = window.location.host.replace('www.','') == 'myproductionsite.com'
+        shim                            = useZepto ? {'jquery':{exports:'Zepto',init:function() { window.jQuery=window.Zepto; }}} : {},
+        isProduction                    = window.location.host.replace('www.','') === 'myproductionsite.com'
     ;
 
     require.config({
-        baseUrl:    'scripts',
-        defaultExt: isProduction ? '.js' : '.src.js', //change this to .js for production, or replace require.src.js with unmodified copy
+        baseUrl     : 'scripts',
+        defaultExt  : isProduction ? '.js' : '.src.js', //or replace require.src.js with unmodified copy
         paths: {
-            jquery:  useZepto ? 'lib/zepto-combined' : 'lib/jquery-combined',
-            JSON:    'lib/json'
+            'jquery'            : useZepto ? 'lib/zepto-combined' : 'lib/jquery-combined',
+            'JSON'              : 'lib/json',
+            'moment'            : 'plugins/moment/moment',
+            'moment-timezone'   : 'plugins/moment/moment-timezone'
         },
         shim: shim
     });
 
-    if( typeof JSON != 'undefined' ) {
+    if( typeof JSON !== 'undefined' ) {
         define('JSON',[],function() { return JSON; });
     }
     define('xing',[],function() { return {}; });

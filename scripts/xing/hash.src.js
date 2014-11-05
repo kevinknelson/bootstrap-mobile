@@ -7,6 +7,7 @@
  */
 define(['jquery','require','xing'],function($, require, xing, undefined) {
     //region PRIVATE MEMBERS/METHODS
+    'use strict';
     var _$pages, _$firstPage,
         _window             = window,
         _document           = document,
@@ -28,7 +29,7 @@ define(['jquery','require','xing'],function($, require, xing, undefined) {
                     if( _get[keyValue.key] === undefined ) {
                         _get[keyValue.key]   = keyValue.value;
                     }
-                    else if( typeof _get[keyValue.key] == 'object' ) {
+                    else if( typeof _get[keyValue.key] === 'object' ) {
                         _get[keyValue.key].push(keyValue.value);
                     }
                     else {
@@ -43,7 +44,8 @@ define(['jquery','require','xing'],function($, require, xing, undefined) {
         },
         _getPageTag = function( path ) {
             var pageId      = _getPageId(path),
-                $page       = path=='' ? _$firstPage : $('#'+pageId);
+                $page       = path==='' ? _$firstPage : $('#'+pageId)
+            ;
             if( $page.length ) { return $page; }
             $page = $("<div />").attr('id',pageId).addClass('page').data('script',_viewModelPath+'/'+path).data('template',_templatePath+'/'+path+_templateExt);
             _$pageContainer.append($page);
@@ -63,13 +65,13 @@ define(['jquery','require','xing'],function($, require, xing, undefined) {
 
             _setUrlParams(urlSplit[1]);
 
-            if( _currentHash != newHash && (script != null || template != null) ) {
+            if( _currentHash !== newHash && (script != null || template != null) ) {
                 var deps        = ['require'];
                 if( script != null ) { deps.push(script); }
                 if( template != null ) {
                     $.get(require.toUrl(template),function(response) {
                         $page.html(response);
-                        $page.data('template',null)
+                        $page.data('template',null);
                         requirejs(deps,triggerCallback);
                     } );
                 }
@@ -77,7 +79,7 @@ define(['jquery','require','xing'],function($, require, xing, undefined) {
                     requirejs(deps,triggerCallback);
                 }
             }
-            if( newHash !== undefined && newHash != _currentHash ) {
+            if( newHash !== undefined && newHash !== _currentHash ) {
                 _currentHash            = newHash;
                 _$pages.each(function() {
                     var $this = $(this);
@@ -89,6 +91,9 @@ define(['jquery','require','xing'],function($, require, xing, undefined) {
     //endregion
 
     //region LITERAL CLASS DEFINITION: hash (NOTE, ASSUMING COMMA IS ABOVE TO NOT NEED var)
+    /**
+     * @type {{get: Function, changePage: Function, config: Function, init: Function}} xing.hash
+     */
     xing.hash         = {
         get             : function( key ) {
             return _get[key] === undefined ? null : _get[key];
@@ -112,7 +117,7 @@ define(['jquery','require','xing'],function($, require, xing, undefined) {
 
     //region EVENT HANDLERS
     $(_window).on('hashchange',function() {
-        if( _window.location.hash != _currentHash ) {
+        if( _window.location.hash !== _currentHash ) {
             changePage(_window.location.hash);
         }
     });
@@ -123,7 +128,7 @@ define(['jquery','require','xing'],function($, require, xing, undefined) {
     // ONLY NEEDED IF USING BOOTSTRAP NAVBAR.  This code will ensure that menu
     // gets closed for single-page apps where we are just changing the hash.
     $(_document).on('click.nav','.navbar-collapse.in',function(e) {
-        if( $(e.target).is('a') && ( $(e.target).attr('class') != 'dropdown-toggle' ) ) {
+        if( $(e.target).is('a') && ( $(e.target).attr('class') !== 'dropdown-toggle' ) ) {
             $(this).collapse('hide');
         }
     });

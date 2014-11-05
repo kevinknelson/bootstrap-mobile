@@ -1,4 +1,5 @@
 define(['jquery','xing/http'],function($,http) {
+    'use strict';
     var loaded  = false,
         prefix  = '#index',
         $page   = $(prefix)

@@ -1,4 +1,12 @@
+/*!
+ * xing.http
+ * http://xingcreative.com/
+ *
+ * Copyright 2013 Kevin K. Nelson
+ * Released under the MIT license
+ */
 define(['jquery','xing'],function($,xing) {
+    'use strict';
     var $body       = $('body'),
         $progress   = $($body.data('progressDisplay')),
         $status     = $($body.data('statusMessage')),
@@ -27,6 +35,9 @@ define(['jquery','xing'],function($,xing) {
             };
         }
     ;
+    /**
+     * @type {{BasePath: string, SitePath: string, redirect: Function, get: Function, post: Function, put: Function, ajax: Function, stackCall: Function, unstackCall: Function, forceEndStack: Function, message: Function}} xing.http
+     */
     xing.http = {
         BasePath	: baseDir,
         SitePath	: sitePath,
@@ -71,7 +82,7 @@ define(['jquery','xing'],function($,xing) {
                 setTimeout( function() {
                     $status.hide('fast');
                     if( callback ) { callback(); }
-                }, typeof timeoutSecs == 'undefined' ? 1400 : (timeoutSecs * 1000));
+                }, typeof timeoutSecs === 'undefined' ? 1400 : (timeoutSecs * 1000));
             }
         }
     };

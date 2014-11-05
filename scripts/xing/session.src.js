@@ -6,8 +6,9 @@
  * Released under the MIT license
  */
 define(['jquery','lib/json','xing'],function($,json,xing) {
+    'use strict';
     var getStorage          = function() {
-            if( typeof sessionStorage != 'undefined' ) {
+            if( typeof sessionStorage !== 'undefined' ) {
                 try {
                     sessionStorage.setItem("storage", "");
                     sessionStorage.removeItem("storage");
@@ -36,9 +37,12 @@ define(['jquery','lib/json','xing'],function($,json,xing) {
         _hasStorage         = _sessionStorage != null
     ;
 
+    /**
+     * @type {{get: Function, set: Function, store: Function, getObject: Function, setObject: Function, storeObject: Function}} xing.session
+     */
     xing.session = {
         get     : function( varName ) {
-            return typeof _vars[varName] == 'undefined' ? getStoredValue(varName) : _vars[varName];
+            return typeof _vars[varName] === 'undefined' ? getStoredValue(varName) : _vars[varName];
         },
         set     : function( varName, value ) {
             _vars[varName] = value;

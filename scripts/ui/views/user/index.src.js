@@ -1,10 +1,12 @@
 define(['jquery','xing/http'],function($,http) {
+    'use strict';
     var loaded          = false,
         prefix          = '#user-index',
         $page           = $(prefix),
         $container      = $(prefix+'-container'),
         $templates      = $(prefix+'-templates'),
-        $userListHtml   = $templates.find('.users-list');
+        $userListHtml   = $templates.find('.users-list')
+    ;
 
     $page.on('scriptloaded',function() {
         if( !loaded ) {
