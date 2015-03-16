@@ -1,6 +1,6 @@
 Bootstrap 3 Single-Page App Skeleton
 ===============
-###w/ Zepto/JQuery & RequireJS with Bootstrap 3 for mobile and responsive sites
+###Zepto/JQuery & RequireJS with Bootstrap 3 for mobile and responsive sites
 
 In trying to use jQuery Mobile I found much to be desired. It adds that "spiffy" mobile-app appearance combined with a lot of bloat. To top it off, it changes all your HTML markup to different HTML markup, which IMHO, has a definite [**code smell**](http://en.wikipedia.org/wiki/Code_smell). jQuery combined with Bootstrap 3 doesn't give that mobile-app feel, but it allows you to create a responsive website, and it doesn't mess with your markup.
 
